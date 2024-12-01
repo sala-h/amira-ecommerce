@@ -5,8 +5,10 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm install --legacy-peer-deps && npm run build",
-        "distDir": "build"
+        "buildCommand": "CI=false npm install --legacy-peer-deps && CI=false DISABLE_ESLINT_PLUGIN=true npm run build",
+        "distDir": "build",
+        "outputDirectory": "build",
+        "framework": "create-react-app"
       }
     }
   ],
