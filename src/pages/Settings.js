@@ -56,7 +56,7 @@ const SettingsSection = ({ title, icon, children }) => {
 const Settings = () => {
   const theme = useTheme();
   const [saved, setSaved] = useState(false);
-  const [profileImage, setProfileImage] = useState('/default-avatar.png');
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleSave = () => {
     setSaved(true);

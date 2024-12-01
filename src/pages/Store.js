@@ -13,7 +13,6 @@ import {
   Menu,
   MenuItem,
   Chip,
-  useTheme,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -25,7 +24,6 @@ import {
 } from '@mui/icons-material';
 
 const ProductCard = ({ product }) => {
-  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuClick = (event) => {
@@ -85,7 +83,6 @@ const ProductCard = ({ product }) => {
 };
 
 const Store = () => {
-  const theme = useTheme();
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
 
   // Sample products data
@@ -141,10 +138,10 @@ const Store = () => {
           variant="contained"
           startIcon={<AddIcon />}
           sx={{
-            bgcolor: theme.palette.primary.main,
+            bgcolor: 'primary.main',
             color: 'white',
             '&:hover': {
-              bgcolor: theme.palette.primary.dark,
+              bgcolor: 'primary.dark',
             },
           }}
         >
