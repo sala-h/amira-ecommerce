@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#004C3F" />
+      <stop offset="100%" style="stop-color:#007F66" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#95BF47" />
+      <stop offset="100%" style="stop-color:#7AB55C" />
+    </linearGradient>
+    <!-- Flowing pattern -->
+    <pattern id="flowPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0 10C5 10 5 0 10 0C15 0 15 10 20 10C25 10 25 0 30 0" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="1"/>
+    </pattern>
+  </defs>
+  
+  <!-- Main Logo Container -->
+  <g transform="translate(10, 8)">
+    <!-- Decorative Circle -->
+    <circle cx="16" cy="16" r="16" fill="url(#logoGradient)"/>
+    
+    <!-- Arabic Letter ع (Ain) Stylized -->
+    <path d="M12 12C12 8 16 8 16 12C16 16 20 16 20 12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+    
+    <!-- Accent Elements -->
+    <circle cx="16" cy="16" r="12" stroke="url(#accentGradient)" stroke-width="1" fill="none"/>
+    <circle cx="16" cy="16" r="14" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" fill="none"/>
+  </g>
+  
+  <!-- Text "Amira" -->
+  <g transform="translate(45, 30)">
+    <text font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="url(#logoGradient)">
+      Amira
+    </text>
+  </g>
+  
+  <!-- Tagline -->
+  <g transform="translate(47, 42)">
+    <text font-family="Arial, sans-serif" font-size="10" fill="#637381">
+      E-Commerce Assistant
+    </text>
+  </g>
+  
+  <!-- Flowing Pattern Overlay -->
+  <rect x="0" y="0" width="180" height="48" fill="url(#flowPattern)" opacity="0.1"/>
+</svg>

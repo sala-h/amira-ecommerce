@@ -1,0 +1,71 @@
+/* SF Pro Display - Regular */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./SF-Pro-Display-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SF Pro Display - Medium */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./SF-Pro-Display-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SF Pro Display - Semibold */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./SF-Pro-Display-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SF Pro Display - Bold */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./SF-Pro-Display-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Sans Arabic - Regular */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('./IBMPlexSansArabic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Sans Arabic - Medium */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('./IBMPlexSansArabic-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Sans Arabic - SemiBold */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('./IBMPlexSansArabic-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Sans Arabic - Bold */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('./IBMPlexSansArabic-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
