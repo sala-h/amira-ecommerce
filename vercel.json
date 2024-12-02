@@ -5,14 +5,23 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "CI=false npm install --legacy-peer-deps && CI=false DISABLE_ESLINT_PLUGIN=true npm run build",
-        "distDir": "build",
-        "outputDirectory": "build",
-        "framework": "create-react-app"
+        "distDir": "build"
       }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/manifest.json"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
