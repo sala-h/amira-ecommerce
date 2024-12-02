@@ -22,27 +22,28 @@ import {
 import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
-  Search as SearchIcon,
-  LocalShipping as DeliveryIcon,
+  Store as StoreIcon,
+  Chat as ChatIcon,
   Analytics as AnalyticsIcon,
-  Payment as PaymentIcon,
   Settings as SettingsIcon,
   Notifications as NotificationsIcon,
   KeyboardArrowDown as ArrowDownIcon,
-  Chat as ChatIcon,
+  Search as SearchIcon,
+  LocalShipping as DeliveryIcon,
+  Payment as PaymentIcon,
 } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import AIChatbot from './AIChatbot';
 
 const DRAWER_WIDTH = 280;
 
 const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
-  { text: 'Market Research', icon: <SearchIcon />, path: '/research' },
-  { text: 'Delivery Management', icon: <DeliveryIcon />, path: '/delivery' },
-  { text: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
-  { text: 'Payments', icon: <PaymentIcon />, path: '/payments' },
-  { text: 'AI Assistant', icon: <ChatIcon />, path: '/chat' },
+  { text: 'لوحة التحكم', icon: <DashboardIcon />, path: '/dashboard' },
+  { text: 'المتجر', icon: <StoreIcon />, path: '/store' },
+  { text: 'المساعد الذكي', icon: <ChatIcon />, path: '/chat' },
+  { text: 'البحث عن المنتجات', icon: <SearchIcon />, path: '/product-research' },
+  { text: 'إدارة التوصيل', icon: <DeliveryIcon />, path: '/delivery' },
+  { text: 'التحليلات', icon: <AnalyticsIcon />, path: '/analytics' },
+  { text: 'المدفوعات', icon: <PaymentIcon />, path: '/payments' },
 ];
 
 function Layout({ children }) {
@@ -83,7 +84,7 @@ function Layout({ children }) {
           fontWeight: 700,
           fontSize: '1.5rem',
         }}>
-          DZ Commerce
+          أميرة
         </Typography>
       </Toolbar>
       <Divider />
@@ -120,21 +121,6 @@ function Layout({ children }) {
                 fontWeight: location.pathname === item.path ? 600 : 400,
               }}
             />
-            {item.text === 'AI Assistant' && (
-              <Box
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: '#fff',
-                  px: 1,
-                  py: 0.5,
-                  borderRadius: 1,
-                  fontSize: '0.75rem',
-                  ml: 1,
-                }}
-              >
-                New
-              </Box>
-            )}
           </ListItem>
         ))}
       </List>
@@ -144,24 +130,38 @@ function Layout({ children }) {
           button
           component={Link}
           to="/settings"
-          sx={{ borderRadius: 2 }}
+          sx={{
+            borderRadius: 2,
+            backgroundColor: location.pathname === '/settings' ? 
+              theme.palette.primary.main + '20' : 'transparent',
+            color: location.pathname === '/settings' ? 
+              theme.palette.primary.main : theme.palette.text.primary,
+          }}
         >
-          <ListItemIcon>
+          <ListItemIcon sx={{
+            color: location.pathname === '/settings' ? 
+              theme.palette.primary.main : theme.palette.text.primary,
+          }}>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="Settings" />
+          <ListItemText primary="الإعدادات" />
         </ListItem>
       </List>
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: theme.palette.background.default }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <AppBar
         position="fixed"
         sx={{
           width: { md: `calc(100% - ${DRAWER_WIDTH}px)` },
           ml: { md: `${DRAWER_WIDTH}px` },
+          backgroundColor: 'white',
+          color: 'text.primary',
+          boxShadow: 'none',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -189,73 +189,16 @@ function Layout({ children }) {
               endIcon={<ArrowDownIcon />}
             >
               <Avatar sx={{ width: 32, height: 32, mr: 1 }}>R</Avatar>
-              <Box sx={{ textAlign: 'left' }}>
+              <Box sx={{ textAlign: 'right' }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  Rafik Rahmani
+                  رفيق رحماني
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Admin
+                  مدير
                 </Typography>
               </Box>
             </Button>
           </Box>
-
-          <Menu
-            anchorEl={userMenuAnchor}
-            open={Boolean(userMenuAnchor)}
-            onClose={handleUserMenuClose}
-            PaperProps={{
-              sx: { width: 200, mt: 1 }
-            }}
-          >
-            <MenuItem onClick={() => { navigate('/profile'); handleUserMenuClose(); }}>
-              Profile
-            </MenuItem>
-            <MenuItem onClick={() => { navigate('/settings'); handleUserMenuClose(); }}>
-              Settings
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleUserMenuClose} sx={{ color: 'error.main' }}>
-              Logout
-            </MenuItem>
-          </Menu>
-
-          <Menu
-            anchorEl={notificationsAnchor}
-            open={Boolean(notificationsAnchor)}
-            onClose={handleNotificationsClose}
-            PaperProps={{
-              sx: { width: 320, maxHeight: 400, mt: 1 }
-            }}
-          >
-            <MenuItem onClick={handleNotificationsClose}>
-              <Box sx={{ width: '100%' }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  New Order #1234
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  New order received from Ahmed in Algiers
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  2 minutes ago
-                </Typography>
-              </Box>
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleNotificationsClose}>
-              <Box sx={{ width: '100%' }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  Payment Collected
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Successfully collected payment for order #1230
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  1 hour ago
-                </Typography>
-              </Box>
-            </MenuItem>
-          </Menu>
         </Toolbar>
       </AppBar>
 
@@ -263,39 +206,39 @@ function Layout({ children }) {
         component="nav"
         sx={{ width: { md: DRAWER_WIDTH }, flexShrink: { md: 0 } }}
       >
-        {isMobile ? (
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', md: 'none' },
-              '& .MuiDrawer-paper': { 
-                boxSizing: 'border-box', 
-                width: DRAWER_WIDTH,
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        ) : (
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: 'none', md: 'block' },
-              '& .MuiDrawer-paper': { 
-                boxSizing: 'border-box', 
-                width: DRAWER_WIDTH,
-              },
-            }}
-            open
-          >
-            {drawer}
-          </Drawer>
-        )}
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': { 
+              boxSizing: 'border-box', 
+              width: DRAWER_WIDTH,
+              borderRight: 'none',
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            '& .MuiDrawer-paper': { 
+              boxSizing: 'border-box', 
+              width: DRAWER_WIDTH,
+              borderRight: 'none',
+              boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.25)',
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
       </Box>
 
       <Box
@@ -304,14 +247,58 @@ function Layout({ children }) {
           flexGrow: 1,
           p: 3,
           width: { md: `calc(100% - ${DRAWER_WIDTH}px)` },
+          mt: '64px',
           backgroundColor: theme.palette.background.default,
-          minHeight: '100vh',
         }}
       >
-        <Toolbar /> {/* Add spacing for the AppBar */}
         {children}
       </Box>
-      <AIChatbot />
+
+      <Menu
+        anchorEl={userMenuAnchor}
+        open={Boolean(userMenuAnchor)}
+        onClose={handleUserMenuClose}
+        onClick={handleUserMenuClose}
+        sx={{ mt: '45px' }}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={() => navigate('/settings')}>
+          <ListItemIcon>
+            <SettingsIcon fontSize="small" />
+          </ListItemIcon>
+          الإعدادات
+        </MenuItem>
+        <MenuItem onClick={() => navigate('/login')}>
+          تسجيل الخروج
+        </MenuItem>
+      </Menu>
+
+      <Menu
+        anchorEl={notificationsAnchor}
+        open={Boolean(notificationsAnchor)}
+        onClose={handleNotificationsClose}
+        onClick={handleNotificationsClose}
+        sx={{ mt: '45px' }}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem>طلب جديد #1234</MenuItem>
+        <MenuItem>رسالة من العميل محمد</MenuItem>
+        <MenuItem>تحديث النظام متوفر</MenuItem>
+      </Menu>
     </Box>
   );
 }
