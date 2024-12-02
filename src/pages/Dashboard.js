@@ -97,9 +97,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 4 }}>
-        مرحباً بك في لوحة التحكم
+    <Box>
+      <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
+        لوحة التحكم
       </Typography>
 
       <Grid container spacing={3}>
@@ -108,21 +108,23 @@ const Dashboard = () => {
             <StatCard {...stat} />
           </Grid>
         ))}
+      </Grid>
 
-        {/* Activity Chart */}
+      <Grid container spacing={3} sx={{ mt: 3 }}>
         <Grid item xs={12} md={8}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                نشاط المبيعات
+                تحليل المبيعات
               </Typography>
-              {/* Add Chart Component Here */}
-              <Box sx={{ height: 300, bgcolor: 'background.default', borderRadius: 1 }} />
+              <Box sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Typography color="text.secondary">
+                  الرسم البياني قيد التطوير
+                </Typography>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
-
-        {/* Recent Orders */}
         <Grid item xs={12} md={4}>
           <Card>
             <CardContent>
@@ -134,23 +136,17 @@ const Dashboard = () => {
                   <Box
                     key={order}
                     sx={{
-                      p: 2,
-                      mb: 1,
-                      bgcolor: 'background.default',
-                      borderRadius: 1,
+                      py: 1.5,
+                      borderBottom: order < 3 ? 1 : 0,
+                      borderColor: 'divider',
                     }}
                   >
                     <Typography variant="subtitle2" gutterBottom>
-                      طلب #{order}
+                      طلب #{1234 + order}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      تم الطلب منذ {order} ساعة
+                      {order === 1 ? 'قيد المعالجة' : order === 2 ? 'تم الشحن' : 'مكتمل'}
                     </Typography>
-                    <LinearProgress
-                      variant="determinate"
-                      value={order * 25}
-                      sx={{ mt: 1 }}
-                    />
                   </Box>
                 ))}
               </Box>
