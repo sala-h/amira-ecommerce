@@ -14,6 +14,7 @@ import {
   IconButton,
   useTheme,
   Alert,
+  MenuItem,
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -22,6 +23,8 @@ import {
   Security as SecurityIcon,
   Store as StoreIcon,
   PhotoCamera as PhotoCameraIcon,
+  LocalShipping as ShippingIcon,
+  Payment as PaymentIcon,
 } from '@mui/icons-material';
 
 const SettingsSection = ({ title, icon, children }) => {
@@ -63,9 +66,18 @@ const Settings = () => {
     setTimeout(() => setSaved(false), 3000);
   };
 
+  const wilayas = [
+    'الجزائر العاصمة',
+    'وهران',
+    'قسنطينة',
+    'عنابة',
+    'سطيف',
+    'تلمسان',
+  ];
+
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 4 }}>
+    <Box>
+      <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
         الإعدادات
       </Typography>
 
@@ -77,13 +89,13 @@ const Settings = () => {
 
       {/* Profile Settings */}
       <SettingsSection title="الملف الشخصي" icon={<EditIcon />}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'start', mb: 3 }}>
           <Box sx={{ position: 'relative', mr: 3 }}>
             <Avatar
               src={profileImage}
               sx={{
-                width: 100,
-                height: 100,
+                width: 120,
+                height: 120,
                 border: `2px solid ${theme.palette.primary.main}`,
               }}
             />
@@ -110,6 +122,23 @@ const Settings = () => {
               <Grid item xs={12} sm={6}>
                 <TextField fullWidth label="البريد الإلكتروني" defaultValue="example@email.com" />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField fullWidth label="رقم الهاتف" defaultValue="0555123456" />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  select
+                  fullWidth
+                  label="الولاية"
+                  defaultValue="الجزائر العاصمة"
+                >
+                  {wilayas.map((wilaya) => (
+                    <MenuItem key={wilaya} value={wilaya}>
+                      {wilaya}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
             </Grid>
           </Box>
         </Box>
@@ -117,12 +146,12 @@ const Settings = () => {
 
       {/* Store Settings */}
       <SettingsSection title="إعدادات المتجر" icon={<StoreIcon />}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField fullWidth label="اسم المتجر" defaultValue="متجري الإلكتروني" />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="رقم الهاتف" defaultValue="0555123456" />
+            <TextField fullWidth label="رقم السجل التجاري" />
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -131,6 +160,62 @@ const Settings = () => {
               rows={3}
               label="وصف المتجر"
               defaultValue="متجر إلكتروني متخصص في بيع المنتجات التكنولوجية"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="رابط صفحة الفيسبوك" />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="رابط صفحة الانستغرام" />
+          </Grid>
+        </Grid>
+      </SettingsSection>
+
+      {/* Shipping Settings */}
+      <SettingsSection title="إعدادات الشحن" icon={<ShippingIcon />}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              select
+              fullWidth
+              label="خدمة التوصيل"
+              defaultValue="يلو"
+            >
+              <MenuItem value="يلو">يلو</MenuItem>
+              <MenuItem value="بريد الجزائر">بريد الجزائر</MenuItem>
+              <MenuItem value="توصيل خاص">توصيل خاص</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              type="number"
+              label="تكلفة التوصيل الافتراضية (دج)"
+              defaultValue="600"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label="السماح بالدفع عند الاستلام"
+            />
+          </Grid>
+        </Grid>
+      </SettingsSection>
+
+      {/* Payment Settings */}
+      <SettingsSection title="إعدادات الدفع" icon={<PaymentIcon />}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="رقم حساب CCP" />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="رقم حساب بريدي موب" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label="تفعيل الدفع الإلكتروني"
             />
           </Grid>
         </Grid>
@@ -162,14 +247,14 @@ const Settings = () => {
         />
         <Divider sx={{ my: 2 }} />
         <FormControlLabel
-          control={<Switch defaultChecked />}
+          control={<Switch />}
           label="الفرنسية"
         />
       </SettingsSection>
 
       {/* Security */}
       <SettingsSection title="الأمان" icon={<SecurityIcon />}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -187,18 +272,14 @@ const Settings = () => {
         </Grid>
       </SettingsSection>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mt: 3 }}>
-        <Button variant="outlined">إلغاء</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mt: 4, mb: 4 }}>
+        <Button variant="outlined" size="large">
+          إلغاء
+        </Button>
         <Button
           variant="contained"
+          size="large"
           onClick={handleSave}
-          sx={{
-            bgcolor: theme.palette.primary.main,
-            color: 'white',
-            '&:hover': {
-              bgcolor: theme.palette.primary.dark,
-            },
-          }}
         >
           حفظ التغييرات
         </Button>
