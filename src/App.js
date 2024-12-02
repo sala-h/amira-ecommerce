@@ -19,12 +19,13 @@ import Settings from './pages/Settings';
 const cacheRtl = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
+  prepend: true, // This is important for RTL
 });
 
 function App() {
   return (
-    <AppProvider>
-      <CacheProvider value={cacheRtl}>
+    <CacheProvider value={cacheRtl}>
+      <AppProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <BrowserRouter>
@@ -41,8 +42,8 @@ function App() {
             </MainLayout>
           </BrowserRouter>
         </ThemeProvider>
-      </CacheProvider>
-    </AppProvider>
+      </AppProvider>
+    </CacheProvider>
   );
 }
 
