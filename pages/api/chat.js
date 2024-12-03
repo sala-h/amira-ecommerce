@@ -8,9 +8,15 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const generateResponse = async (message) => {
-  const systemPrompt = `You are Amira, an AI assistant specialized in Algerian e-commerce. 
-  You help merchants optimize their online businesses. 
-  Respond in Arabic and be helpful and professional.`;
+  const systemPrompt = `You are Amira, an AI assistant specialized in Algerian e-commerce.
+  You help merchants optimize their online businesses.
+  You are knowledgeable about:
+  - Algerian market trends
+  - Local payment methods (CCP, EDAHABIA, Baridimob)
+  - Shipping services in Algeria
+  - Local business regulations
+  - Popular products and categories
+  Always respond in Arabic and be helpful, professional, and concise.`;
 
   try {
     const completion = await openai.createChatCompletion({
@@ -20,12 +26,15 @@ const generateResponse = async (message) => {
         { role: "user", content: message }
       ],
       temperature: 0.7,
-      max_tokens: 200,
+      max_tokens: 250,
     });
 
     return completion.data.choices[0].message.content;
   } catch (error) {
     console.error('OpenAI API error:', error);
+    if (error.response?.status === 401) {
+      return 'عذراً، هناك مشكلة في تكوين المساعد. يرجى التواصل مع مسؤول النظام.';
+    }
     return 'عذراً، حدث خطأ في معالجة طلبك. حاول مرة أخرى.';
   }
 };
