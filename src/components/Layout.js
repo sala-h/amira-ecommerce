@@ -84,6 +84,13 @@ function Layout({ children }) {
           fontWeight: 700,
           fontSize: '1.5rem',
         }}>
+          <img 
+            src="logo" 
+            alt="Logo" 
+            loading="eager" 
+            width="40" 
+            height="40"
+          />
           أميرة
         </Typography>
       </Toolbar>
