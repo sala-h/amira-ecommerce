@@ -100,17 +100,45 @@ const Chat = () => {
     setMessages((prev) => [...prev, { text: userMessage, isBot: false }]);
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      console.log('Sending message to API...');
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      console.log('API Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error in API response');
+      }
+
+      const data = await response.json();
+      console.log('API Response data:', data);
+      
       setMessages((prev) => [
         ...prev,
         {
-          text: 'شكراً على رسالتك! سأقوم بمساعدتك في تحسين تجارتك الإلكترونية.',
+          text: data.response || 'عذراً، حدث خطأ في معالجة طلبك. حاول مرة أخرى.',
           isBot: true,
         },
       ]);
+    } catch (error) {
+      console.error('Chat Error:', error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: 'عذراً، حدث خطأ في الاتصال. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.',
+          isBot: true,
+        },
+      ]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e) => {
