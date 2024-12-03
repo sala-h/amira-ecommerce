@@ -7,6 +7,29 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+const generateResponse = async (message) => {
+  const systemPrompt = `You are Amira, an AI assistant specialized in Algerian e-commerce. 
+  You help merchants optimize their online businesses. 
+  Respond in Arabic and be helpful and professional.`;
+
+  try {
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message }
+      ],
+      temperature: 0.7,
+      max_tokens: 200,
+    });
+
+    return completion.data.choices[0].message.content;
+  } catch (error) {
+    console.error('OpenAI API error:', error);
+    return 'عذراً، حدث خطأ في معالجة طلبك. حاول مرة أخرى.';
+  }
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -15,13 +38,15 @@ export default async function handler(req, res) {
   try {
     const { message } = req.body;
 
-    // For now, let's return a simple response without OpenAI
-    // This ensures the API works even without the OpenAI key
-    const response = {
-      response: `مرحباً! تلقيت رسالتك: "${message}". كيف يمكنني مساعدتك اليوم؟`
-    };
+    if (!process.env.OPENAI_API_KEY) {
+      // Fallback response if no API key is configured
+      return res.status(200).json({
+        response: 'مرحباً! أنا أميرة. كيف يمكنني مساعدتك في تجارتك الإلكترونية اليوم؟'
+      });
+    }
 
-    res.status(200).json(response);
+    const response = await generateResponse(message);
+    res.status(200).json({ response });
   } catch (error) {
     console.error('Error in chat API:', error);
     res.status(500).json({ 

@@ -101,29 +101,31 @@ const Chat = () => {
     setIsTyping(true);
 
     try {
-      console.log('Sending message to API...');
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ 
+          message: userMessage,
+          context: messages.slice(-4) // Send last 4 messages for context
+        }),
       });
 
-      console.log('API Response status:', response.status);
-      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error in API response');
+        throw new Error('Network response was not ok');
       }
 
       const data = await response.json();
-      console.log('API Response data:', data);
       
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       setMessages((prev) => [
         ...prev,
         {
-          text: data.response || 'عذراً، حدث خطأ في معالجة طلبك. حاول مرة أخرى.',
+          text: data.response,
           isBot: true,
         },
       ]);
@@ -132,7 +134,7 @@ const Chat = () => {
       setMessages((prev) => [
         ...prev,
         {
-          text: 'عذراً، حدث خطأ في الاتصال. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.',
+          text: 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.',
           isBot: true,
         },
       ]);
