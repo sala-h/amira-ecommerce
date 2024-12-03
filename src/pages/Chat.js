@@ -17,7 +17,7 @@ import {
   Person as PersonIcon,
 } from '@mui/icons-material';
 
-const Message = ({ message, isBot }) => {
+const Message = ({ message, isBot, isLimited, isError }) => {
   const theme = useTheme();
 
   return (
@@ -44,6 +44,8 @@ const Message = ({ message, isBot }) => {
           bgcolor: isBot ? 'background.paper' : theme.palette.primary.main,
           borderRadius: 2,
           boxShadow: theme.shadows[2],
+          opacity: isLimited ? 0.5 : 1,
+          border: isError ? '1px solid red' : 'none',
         }}
       >
         <CardContent>
@@ -118,15 +120,12 @@ const Chat = () => {
 
       const data = await response.json();
       
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
       setMessages((prev) => [
         ...prev,
         {
           text: data.response,
           isBot: true,
+          isLimited: data.isLimited
         },
       ]);
     } catch (error) {
@@ -136,6 +135,7 @@ const Chat = () => {
         {
           text: 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.',
           isBot: true,
+          isError: true
         },
       ]);
     } finally {
@@ -190,7 +190,7 @@ const Chat = () => {
         }}
       >
         {messages.map((message, index) => (
-          <Message key={index} message={message.text} isBot={message.isBot} />
+          <Message key={index} message={message.text} isBot={message.isBot} isLimited={message.isLimited} isError={message.isError} />
         ))}
         {isTyping && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 2 }}>
